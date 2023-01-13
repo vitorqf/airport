@@ -5,13 +5,8 @@ class Crew(Person):
         super().__init__(name, __class__.__name__)
         self.__occupation = occupation
 
-    @property
-    def name(self) -> str:
-        return self.__name
-
-    @name.setter
-    def name(self, value: str) -> None:
-        self.__name = value
+    def __str__(self) -> str:
+        return f"Name: {self.name}\nOccupation: {self.__occupation}"
 
     @property
     def occupation(self) -> str:

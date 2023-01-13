@@ -7,7 +7,7 @@ from uuid import uuid4
 
 
 class Flight:
-    def __init__(self, type: str, departure: Airport, destination: Airport, departure_time, departure_date, seats: dict[Seat], crew: list[Crew]) -> None:
+    def __init__(self, type: str, departure: Airport, destination: Airport, departure_time: datetime.time, departure_date: datetime.date, seats: dict[Seat], crew: list[Crew]) -> None:
         self.__id = uuid4()
         self.__type = type
         self.__departure = departure
@@ -21,7 +21,7 @@ class Flight:
         return {key: value for key, value in self.__seats.items() if value.owner == 'Not owned'}
 
     def showCrew(self):
-        pass
+        return [(crew_member) for crew_member in self.__crew]
 
     def __str__(self):
         return f"ID: {self.__id}\
@@ -34,7 +34,7 @@ class Flight:
         return self.__id
 
     @id.setter
-    def id(self, value: str) -> None:
+    def id(self, value) -> None:
         self.__id = value
 
     @property
@@ -63,25 +63,25 @@ class Flight:
         self.__destination = value
 
     @property
-    def departure_time(self):
+    def departure_time(self) -> datetime.time:
         return self.__departure_time
 
     @departure_time.setter
-    def departure_time(self, value) -> None:
+    def departure_time(self, value: datetime.time) -> None:
         self.__departure_time = value
 
     @property
-    def departure_date(self):
+    def departure_date(self) -> datetime.date:
         return self.__departure_date
 
     @departure_date.setter
-    def departure_date(self, value) -> None:
+    def departure_date(self, value: datetime.date) -> None:
         self.__departure_date = value
 
     @property
-    def seats(self) -> list[Seat]:
+    def seats(self) -> dict[Seat]:
         return self.__seats
 
     @seats.setter
-    def seats(self, value: list[Seat]) -> None:
+    def seats(self, value: dict[Seat]) -> None:
         self.__seats = value
