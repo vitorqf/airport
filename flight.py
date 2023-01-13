@@ -17,8 +17,8 @@ class Flight:
         self.__seats = seats
         self.__crew = crew
 
-    def freeSeatsAmount(self):
-        pass
+    def freeSeats(self) -> list[Seat]:
+        return [seat for seat in self.__seats if seat.status == 'Available']
 
     def showCrew(self):
         pass

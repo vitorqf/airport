@@ -1,3 +1,5 @@
+
+
 class Seat:
     def __init__(self, id: str, status: str = 'Available') -> None:
         self.__id = id

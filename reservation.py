@@ -3,8 +3,9 @@ from flight import Flight
 from person import Person
 from seat import Seat
 
-class Reservation(ABC):
-    def __init__(self, flight: Flight) -> None:
+class Passenger(Person):
+    def __init__(self, name, flight: Flight) -> None:
+        super().__init__(name, __class__.__name__)
         self.__flight = flight
 
     """
@@ -37,7 +38,5 @@ class Reservation(ABC):
     def flight(self, value: Flight) -> None:
         self.__flight = value
 
-class Passenger(Person, Reservation):
-    def __init__(self, name: str, flight: Flight, seat: Seat) -> None:
-        super().__init__(name, __class__.__name__)
-        self.__flight = flight
+    def __str__(self) -> str:
+        return f"Name: {self.__name}"
