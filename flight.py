@@ -17,6 +17,18 @@ class Flight:
         self.__seats = seats
         self.__crew = crew
 
+    def freeSeatsAmount(self):
+        pass
+
+    def showCrew(self):
+        pass
+
+    def __str__(self):
+        return f"ID: {self.__id}\
+               \nTYPE: {self.__type}\
+               \nTRAVEL: {self.__destination.name} -> {self.__departure.name}\
+               \nDEPARTURE DATE: {self.__departure_date}\
+               \nDEPARTURE AT: {self.__departure_time}"
     @property
     def id(self):
         return self.__id

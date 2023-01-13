@@ -1,6 +1,8 @@
 from airport import Airport, City
 from crew import Crew
 from flight import Flight
+from reservation import Reservation
+
 from seat import Seat
 from datetime import datetime
 
@@ -19,12 +21,18 @@ if __name__ == '__main__':
     seat1 = Seat('A11')
     seat2 = Seat('A12')
 
+    print(seat1)
+
     seat_list = [seat1, seat2]
 
 
     flight1 = Flight('National', airport1, airport2, datetime.now().strftime('%H:%M:%S'), datetime.now().strftime('%d/%m/%Y'), seat_list, crew_list)
 
-    print(flight1.destination)
+    # reservation1 = Reservation(flight1)
+
+    # print(reservation1.flight)
+
+    print(flight1)
 
     # print(datetime.now().strftime('%d-%m-%Y'))
 

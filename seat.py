@@ -2,7 +2,9 @@ class Seat:
     def __init__(self, id: str, status: str = 'Available') -> None:
         self.__id = id
         self.__status = status
-        self.__seats_list = list()
+    
+    def __str__(self) -> str:
+        return f"SEAT [{self.__id}]: {self.__status}"
 
     @property
     def id(self) -> str:
@@ -19,11 +21,3 @@ class Seat:
     @status.setter
     def status(self, value) -> None:
         self.__status = value
-
-    @property
-    def seats_list(self) -> list[str]:
-        return self.__seats_list
-
-    @seats_list.setter
-    def seats_list(self, value: list[str]) -> None:
-        self.__seats_list = value
