@@ -1,5 +1,12 @@
 import os
 
+from airport import Airport, City
+from crew import Crew
+from flight import Flight
+from person_with_reservation import Operator, Passenger
+from reservation import Reservation
+from seat import Seat
+
 
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -62,10 +69,13 @@ def menuAdmin():
     print("|         7. Sair                             |")
     print("===============================================")
     choice = input("Entre com sua escolha [1-7]: ")
+
     
     while True:
         if choice == '1':
             clear()
+            CadastroCidade()
+            break
             
         elif choice == '2':
             clear()
@@ -127,5 +137,39 @@ def menuUser():
             clear()
             print("Opção inválida. Escolha novamente.")
 
-        
-Iniciar()
+def CadastroCidade():
+    clear()
+    print("===============================================")
+    print("|               Cadastrar Cidade              |")
+    print("===============================================")
+    pais = input("              País: ")
+    estado = input("              Estado: ")
+    cidade = input("              Cidade: ")
+
+    instance = City(pais, estado, cidade)
+    City_list.append(instance)
+    print("===============================================")
+
+def CadastroAeroporto():
+    clear()
+    print("===============================================")
+    print("|             Cadastrar Aeroporto             |")
+    print("===============================================")
+    nome = input("              Nome: ")
+    decolagens = int(input("              Decolagens suportadas: "))
+    
+
+    instance = Airport(City_list[0], nome, decolagens)
+    Airport_list.append(instance)
+
+    print("===============================================")
+
+    if instance.name != '' and instance.max_departures != '':
+        print('Aeroporto cadastrado com sucesso!')
+    else:
+        print('Aeroporto não cadastrado!')
+
+# CadastroCidade()
+Airport_list = []
+City_list = [City('dasd', 'dasijdias', 'duas')]
+CadastroAeroporto()
