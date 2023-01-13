@@ -1,9 +1,10 @@
 
 
 class Seat:
-    def __init__(self, id: str, status: str = 'Available') -> None:
+    def __init__(self, id: str, owner: str = 'Not owned', status: str = 'Available') -> None:
         self.__id = id
         self.__status = status
+        self.__owner = owner
     
     def __str__(self) -> str:
         return f"SEAT [{self.__id}]: {self.__status}"
@@ -23,3 +24,11 @@ class Seat:
     @status.setter
     def status(self, value) -> None:
         self.__status = value
+
+    @property
+    def owner(self) -> str:
+        return self.__owner
+
+    @owner.setter
+    def owner(self, value: str) -> None:
+        self.__owner = value

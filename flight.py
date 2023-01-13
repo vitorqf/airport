@@ -7,7 +7,7 @@ from uuid import uuid4
 
 
 class Flight:
-    def __init__(self, type: str, departure: Airport, destination: Airport, departure_time, departure_date, seats: list[Seat], crew: list[Crew]) -> None:
+    def __init__(self, type: str, departure: Airport, destination: Airport, departure_time, departure_date, seats: dict[Seat], crew: list[Crew]) -> None:
         self.__id = uuid4()
         self.__type = type
         self.__departure = departure
@@ -17,8 +17,8 @@ class Flight:
         self.__seats = seats
         self.__crew = crew
 
-    def freeSeats(self) -> list[Seat]:
-        return [seat for seat in self.__seats if seat.status == 'Available']
+    def freeSeats(self) -> dict[Seat]:
+        return {key: value for key, value in self.__seats.items() if value.owner == 'Not owned'}
 
     def showCrew(self):
         pass
@@ -27,7 +27,7 @@ class Flight:
         return f"ID: {self.__id}\
                \nTYPE: {self.__type}\
                \nTRAVEL: {self.__destination.name} -> {self.__departure.name}\
-               \nDEPARTURE DATE: {self.__departure_date}\
+               \nDEPARTURE DATE: {self.__departure_date.strftime('%d/%m/%Y')}\
                \nDEPARTURE AT: {self.__departure_time}"
     @property
     def id(self):

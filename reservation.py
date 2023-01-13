@@ -1,42 +1,21 @@
-from abc import ABC, abstractmethod
+from datetime import datetime
 from flight import Flight
-from person import Person
+from passenger import Operator, Passenger
 from seat import Seat
 
-class Passenger(Person):
-    def __init__(self, name, flight: Flight) -> None:
-        super().__init__(name, __class__.__name__)
+
+class Reservation:
+    def __init__(self, passenger: Passenger, operator: Operator, flight: Flight, seat: Seat) -> None:
+        self.__passenger = passenger
+        self.__operator = operator
         self.__flight = flight
+        self.__seat = seat
+        self.__id = f"{self.__flight.departure_date.strftime('%d%m%Y%')}{self.__seat.id}"
+        self.__createdAt = datetime.now()
 
-    """
-    Checks whether the 
-    @param seat 
-    is currently available in the flight, if ==true then reservation is possible.
-    """
-    def create(self, seat) -> None:
-        if self.__flight.seats[seat].status == 'Busy':
-            raise ValueError('Seat is busy!')
+    def __str__(self):
+        if self.__id is None:
+            raise ValueError("Reservation yet to be created")
 
-        self.__flight.seats[seat].status = 'Busy'
-
-    """
-    Checks whether the 
-    @param seat 
-    is currently busy in the flight, if ==true then cancelling is possible.
-    """
-    def cancel(self, seat) -> None:
-        if self.__flight.seats[seat].status == 'Available':
-            raise ValueError('Seat is already available!')
-
-        self.__flight.seats[seat].status = 'Available'
-
-    @property
-    def flight(self) -> Flight:
-        return self.__flight
-
-    @flight.setter
-    def flight(self, value: Flight) -> None:
-        self.__flight = value
-
-    def __str__(self) -> str:
-        return f"Name: {self.__name}"
+        return f"Created at: {self.__createdAt.strftime('%d/%m/%Y')}\nID: {self.__id}\nCreated by {self.__operator.name} for {self.__passenger.name}"
+        
