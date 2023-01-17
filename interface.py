@@ -68,3 +68,5 @@ while True:
     else:
         clear()
         print("Opção inválida. Escolha novamente.")
+
+
