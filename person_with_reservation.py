@@ -25,6 +25,7 @@ class Passenger(PersonWithReservation):
             'flight': flight,
             'name': super().name,
             'seat': seat,
+            'status': 'Pending'
         }
 
         return self.__seatRequest
@@ -34,6 +35,21 @@ class Passenger(PersonWithReservation):
             raise Exception("Sorry! You don't own any seat.")
 
         self.__seatRequest = None
+
+    def pay(self, request):
+        if request == None:
+            raise Exception("Sorry! You don't own any seat.")
+        
+        if request['status'] == 'Confirmed':
+            raise Exception("Sorry! You already paid for this seat.")
+        
+        if request['status'] == 'Canceled':
+            raise Exception("Sorry! You canceled this seat.")
+        
+        if request['name'] != super().name:
+            raise Exception("Sorry! You don't own this seat.")
+
+        return True
         
     def __str__(self) -> str:
         return f"Name: {self.__name}"
@@ -48,15 +64,19 @@ class Operator(PersonWithReservation):
     @param seat 
     no momento não possui um ocupante, se ==true então a reserva é possível de ser criada.
     """
-    def create(self, request: dict['flight': Flight, 'name': str, 'seat': str]) -> None:
+    def create(self, request: dict['flight': Flight, 'name': str, 'seat': str, 'status': str]) -> None:
         if request == None:
             raise Exception("You're trying to confirm an empty request.")
 
         if request['flight'].id != self.__flight.id:
             raise Exception("You're trying to confirm a request for a different flight.")
+        
+        if request['status'] != 'Pending':
+            raise Exception("You're trying to confirm a request that is not pending.")
 
         self.__flight.seats[request['seat']].owner = request['name']
         self.__flight.seats[request['seat']].status = 'Busy'
+        request['status'] = 'Confirmed'
 
         return True
 
