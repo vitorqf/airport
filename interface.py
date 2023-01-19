@@ -43,7 +43,7 @@ def Iniciar():
             
         elif choice == '2':
             clear()
-            menuUser()
+            Login()
             break
             
         elif choice == '3':
@@ -93,6 +93,7 @@ def menuAdmin():
             break
 
         elif choice == '5':
+            CadastroOperador()
             clear()
             
         elif choice == '6':
@@ -103,19 +104,20 @@ def menuAdmin():
             clear()
             Iniciar()
 
+
     
 
-def menuUser():
+def menuUserLogado():
     clear()
     print("===============================================")
     print("|                    MENU                     |")
     print("===============================================")
     print("| Opções:                                     |")
-    print("|                 1. opcao                    |")
-    print("|                 2. opcao                    |")
-    print("|                 3. opcao                    |")
-    print("|                 4. opcao                    |")
-    print("|                 5. Sair                     |")
+    print("|            1. Solicitar assento             |")
+    print("|            2. Pagamento                     |")
+    print("|            3. Cancelar pedido               |")
+    print("|            4. informações                   |") 
+    print("|            5. Sair                          |")
     print("===============================================")
     choice = input("Entre com sua escolha [1-5]: ")
 
@@ -140,6 +142,42 @@ def menuUser():
             clear()
             print("Opção inválida. Escolha novamente.")
 
+def Login():
+    clear()
+    print("===============================================")
+    print("|                 Autenticação                |")
+    print("===============================================")
+    print("| Opções:                                     |")
+    print("|               1. Cadastrar-se               |")
+    print("|               2. Login                      |")
+    print("|               3. Sair                       |")
+    print("===============================================")
+    choice = input("Entre com sua escolha [1-5]: ")
+    while True:
+        if choice == '1':
+                nome = input("Nome: ")
+                contas.append(Passenger(nome))
+                clear()
+                menuAdmin()
+                break
+            else:
+                print("Senha inválida. Pressione Enter para caso queira voltar")
+                if senha == '':
+                    clear()
+                    Iniciar()
+                continue
+            
+        elif choice == '2':
+            clear()
+            
+        elif choice == '3':
+            clear()
+            print("Saindo do programa...")
+            break
+        else:
+            clear()
+            print("Opção inválida. Escolha novamente.")
+            break
 
 
 
@@ -150,6 +188,8 @@ City_list = []
 Crew_list = []
 Seat_list = []
 Flight_list = []
+Operator_list = []
+contas = []
 
 
 def CadastroCidade():
@@ -221,7 +261,6 @@ def CadastroTripulacao():
             menuAdmin()
             break
 
-
 def CadastroVoo():
     while True:
         clear() 
@@ -234,7 +273,29 @@ def CadastroVoo():
             assento = input("              ID do assento: ")
             Seat_list.append(assento)
 
+
+        # arrumar o append do Flight
         Flight_list.append(Flight(tipo, Airport_list[0], Airport_list[1]), datetime.now().time(), datetime.now().date(), Seat_list, Crew_list)
+        print("===============================================")
+        next = input('Continuar cadastrando? (s/n):  ')
+        if next == 's':
+            continue
+        else:
+            clear()
+            menuAdmin()
+            break
+
+def CadastroOperador():
+    while True:
+        clear() 
+        print("===============================================")
+        print("|              Cadastrar Operador             |")
+        print("===============================================")
+        nome = input("              Nome:  ")
+        voo = input("  Insira o Voo relacionado ao operador: ")
+        # arrumar o input do voo
+
+        Operator_list.append(Operator(nome, voo))
         print("===============================================")
         next = input('Continuar cadastrando? (s/n):  ')
         if next == 's':
