@@ -8,21 +8,6 @@ from seat import Seat
 from datetime import datetime
 
 if __name__ == '__main__':
-    """
-    1 - Criar as cidades onde ficarão localizados os aeroportos
-    2 - Criar os aeroportos nas cidades registradas
-    3 - Criar a tripulação do voô
-    4 - Criar a lista de assentos iniciais
-    5 - Criar o voô, com tipo de voô, aeroporto de partida e destino, data e hora de saída, lista de assentos iniciais, lista de membros da tripulação
-    6 - Criar passageiro e operador
-    7 - Fazer com que o passageiro faça o pedido de um assento
-    8 - Se tudo estiver ok, o operador conseguirá confirmar o pedido
-    9 - Fazer com que o passageiro faça o pagamento
-    10 - Mostrar informações sobre uma reserva confirmada
-    11 - Permitir que um passageiro consiga cancelar seu pedido
-    12 - Verificar informações do voô: membros da tripulação e assentos disponíveis
-    """
-
     #1
     city1 = City('PDF', 'Brazil', 'RN')
     city2 = City('Patu', 'Brazil', 'RN')
@@ -42,12 +27,17 @@ if __name__ == '__main__':
         'A12': Seat('A12'),
         'A13': Seat('A13'),
         'B11': Seat('B11'),
-        'B12': Seat('B12'),
+        'B12': Seat('B12'), 
         'B13': Seat('B13')
     }
 
     #5
     flight1 = Flight('National', airport1, airport2, datetime.now().time(), datetime.now().date(), seat_list, crew_list)
+
+    """
+        Cria dois passageiros, um operador e 3 requisições de reserva para bancos diferentes.
+        O passageiro Carlos paga a primeira requisição e o operador Muriel cria a reserva.
+    """
 
     #6 
     carlos_passenger = Passenger('Carlos')
@@ -61,12 +51,12 @@ if __name__ == '__main__':
     request3 = carlos_passenger.create(flight1, 'A13')
 
     #8 
-    if muriel_operator.create(request1):
+    if carlos_passenger.pay(request1):
         muriel_operator.create(request1)
         reservation1 = Reservation(carlos_passenger, muriel_operator, flight1, seat_list['A11'])
 
-    if muriel_operator.create(request3):
-        muriel_operator.create(request3)
+    if cristina_passenger.pay(request2):
+        muriel_operator.create(request2)
         reservation2 = Reservation(cristina_passenger, muriel_operator, flight1, seat_list['A13'])
 
     #10
@@ -75,19 +65,22 @@ if __name__ == '__main__':
     print()
     print(reservation2)
 
+    print('REQUESTS\n')
+    print(request3)
+
     #11
     print('\nPassenger cancels reservation request')
     cristina_passenger.cancel()
 
     print('Operator cancels reservation')
-    muriel_operator.cancel('A13', reservation2)
+    muriel_operator.cancel('A12', reservation2)
 
     print('\nTrying to print a canceled reservation, throws exception: ')
     try:
         print(reservation2)
 
     except ValueError as e:
-        print(f"\n{e}\n")
+        print(f"\n==> {e}\n")
 
     #12
     freeSeats = flight1.freeSeats()
