@@ -43,7 +43,7 @@ def Iniciar():
             
         elif choice == '2':
             clear()
-            Login()
+            menuLogin()
             break
             
         elif choice == '3':
@@ -93,8 +93,8 @@ def menuAdmin():
             break
 
         elif choice == '5':
-            CadastroOperador()
             clear()
+            CadastroOperador()
             
         elif choice == '6':
             clear()
@@ -113,9 +113,9 @@ def menuUserLogado():
     print("|                    MENU                     |")
     print("===============================================")
     print("| Opções:                                     |")
-    print("|            1. Solicitar assento             |")
+    print("|            1. Criar reserva                 |")
     print("|            2. Pagamento                     |")
-    print("|            3. Cancelar pedido               |")
+    print("|            3. Cancelar reserva              |")
     print("|            4. informações                   |") 
     print("|            5. Sair                          |")
     print("===============================================")
@@ -142,7 +142,7 @@ def menuUserLogado():
             clear()
             print("Opção inválida. Escolha novamente.")
 
-def Login():
+def menuLogin():
     clear()
     print("===============================================")
     print("|                 Autenticação                |")
@@ -155,20 +155,13 @@ def Login():
     choice = input("Entre com sua escolha [1-5]: ")
     while True:
         if choice == '1':
-                nome = input("Nome: ")
-                contas.append(Passenger(nome))
-                clear()
-                menuAdmin()
-                break
-            else:
-                print("Senha inválida. Pressione Enter para caso queira voltar")
-                if senha == '':
-                    clear()
-                    Iniciar()
-                continue
+            clear()
+            CadastroPassageiro()
+            break
             
         elif choice == '2':
             clear()
+            FazerLogin()
             
         elif choice == '3':
             clear()
@@ -189,7 +182,7 @@ Crew_list = []
 Seat_list = []
 Flight_list = []
 Operator_list = []
-contas = []
+Passenger_list = []
 
 
 def CadastroCidade():
@@ -305,7 +298,52 @@ def CadastroOperador():
             menuAdmin()
             break
 
+
+
+
+
+def CadastroPassageiro():
+    while True:
+        clear() 
+        print("===============================================")
+        print("|             Cadastrar Passageiro            |")
+        print("===============================================")
+        nome = input("              Nome: ")
+        Passenger_list.append(Passenger(nome))
+        print("===============================================")
+        next = input('Continuar cadastrando? (s/n):  ')
+        if next == 's':
+            CadastroPassageiro()
+        if nome:
+            clear()
+            menuUserLogado()
+            break    
+        else:
+            print("Cadastro inválida. Pressione Enter para caso queira voltar")
+            if nome == '':
+                clear()
+                Iniciar()
+            continue
+
+def FazerLogin():
+    while True:
+        clear() 
+        print("===============================================")
+        print("|                 Fazer Login                 |")
+        print("===============================================")
+        nome = input("              Nome: ")
+        if nome in Passenger_list:
+            clear()
+            menuUserLogado()
+            break
+        else:
+            print("Login inválido. Tente novamente")
+            FazerLogin()
+            break
 # Iniciar()
 # CadastroCidade()
 # CadastroAeroporto()
 # CadastroTripulacao()
+# menuLogin()
+# FazerLogin()
+print(Passenger_list)
